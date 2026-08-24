@@ -1,4 +1,4 @@
-Installation Methods
+# Installation Methods
 You can install CollectiveAccess on Windows using either:
 
 WSL‑Native (recommended) — fastest, simplest, most stable
@@ -29,7 +29,7 @@ No NTFS bind‑mount penalties
 
 If you are running CollectiveAccess on Windows, WSL‑Native is the preferred method.
 
-Repository Structure
+### Repository Structure
 This repository contains:
 
 Code
@@ -39,7 +39,7 @@ Code
 /performance/  → Optional tuning for PHP, MySQL, and Apache
 Each section provides step‑by‑step instructions tailored for Windows users running CA under WSL2.
 
-Migrating from Docker Desktop
+### Migrating from Docker Desktop
 If you previously installed CollectiveAccess using Docker Desktop, you can migrate to WSL‑Native by:
 
 Copying your CA directories into WSL
@@ -54,15 +54,15 @@ Verifying permissions
 
 See: wsl/migrating-from-docker.md (create this file when ready).
 
-About the Docker Version
+### About the Docker Version
 The Docker installation guide remains available for users who prefer containerisation:
 
-Alternative: Docker Desktop Installation  
+### Alternative: Docker Desktop Installation  
 https://github.com/<yourname>/collectiveaccess-docker-starter-kit
 
 This method is portable and familiar to many users, but slower on Windows due to virtualization and overlay filesystem overhead.
 
-Goals of This Repository
+### Goals of This Repository
 This project aims to provide:
 
 A modern, fast, Windows‑friendly installation path
