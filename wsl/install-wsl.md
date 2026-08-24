@@ -1,7 +1,8 @@
-WSL Installation Guide
+# WSL Installation Guide
+
 This page describes how to install and prepare Windows Subsystem for Linux (WSL2) for running CollectiveAccess on Windows. WSL2 provides a fast, native‑Linux environment without the overhead of Docker Desktop or IIS.
 
-1. Install WSL2
+## 1. Install WSL2
 Open PowerShell (Administrator) and run:
 
 Code
@@ -18,7 +19,7 @@ Set WSL2 as the default version
 
 Restart Windows when prompted.
 
-2. Launch Ubuntu
+## 2. Launch Ubuntu
 Open Ubuntu from the Start Menu.
 
 On first launch, Ubuntu will:
@@ -31,7 +32,7 @@ Ask you to create a Linux password
 
 These credentials are for your Linux environment only.
 
-3. Update Ubuntu
+## 3. Update Ubuntu
 Inside Ubuntu, run:
 
 Code
@@ -39,7 +40,7 @@ sudo apt update
 sudo apt upgrade -y
 This ensures all packages are current.
 
-4. Basic WSL commands
+## 4. Basic WSL commands
 Useful commands for daily use:
 
 Code
@@ -48,7 +49,7 @@ exit                 # Leave Ubuntu
 wsl --shutdown       # Fully stop all WSL instances
 WSL automatically suspends when not in use. No manual shutdown is required.
 
-5. Accessing WSL files from Windows
+## 5. Accessing WSL files from Windows
 You can browse and edit WSL files using Windows tools via:
 
 Code
@@ -75,7 +76,7 @@ Restore ownership after editing:
 
 Code
 sudo chown -R www-data:www-data /var/www/html
-6. Next steps
+## 6. Next steps
 Continue with:
 
 Apache + PHP 8.4 installation → wsl/apache-php84.md
