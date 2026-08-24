@@ -5,6 +5,8 @@ WSL‑Native (recommended) — fastest, simplest, most stable
 
 Docker Desktop — containerised, portable, slower on Windows
 
+## WSL‑Native is faster because it runs CollectiveAccess on a real Linux filesystem (ext4) with near‑native performance, avoiding Docker’s overlay filesystem, NTFS penalties, and container virtualization overhead.
+
 ### Recommended: WSL‑Native Installation
 See: wsl/install-wsl.md
 
