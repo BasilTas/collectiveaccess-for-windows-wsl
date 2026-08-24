@@ -11,7 +11,7 @@ Docker Desktop — containerised, portable, slower on Windows
 See: wsl/install-wsl.md
 
 ### Alternative: Docker Desktop Installation
-See: https://github.com/<yourname>/collectiveaccess-docker-starter-kit
+See: https://github.com/BasilTas/collectiveaccess-docker-starter-kit
 Why WSL‑Native is Recommended
 WSL2 provides a near‑native Linux environment on Windows, giving CollectiveAccess significantly better performance than Docker Desktop or IIS. Real‑world benchmarks show:
 
