@@ -33,12 +33,13 @@ If you are running CollectiveAccess on Windows, WSL‑Native is the preferred me
 
 ### Repository Structure
 This repository contains:
-
+```text
 Code
 /wsl/          → WSL installation and configuration guides
 /providence/   → Providence setup notes and configuration checks
 /pawtucket/    → Pawtucket setup notes and media linking
 /performance/  → Optional tuning for PHP, MySQL, and Apache
+```
 Each section provides step‑by‑step instructions tailored for Windows users running CA under WSL2.
 
 ### Migrating from Docker Desktop
