@@ -60,7 +60,7 @@ See: wsl/migrating-from-docker.md (create this file when ready).
 The Docker installation guide remains available for users who prefer containerisation:
 
 ### Alternative: Docker Desktop Installation  
-https://github.com/<yourname>/collectiveaccess-docker-starter-kit
+https://github.com/BasilTas/collectiveaccess-docker-starter-kit
 
 This method is portable and familiar to many users, but slower on Windows due to virtualization and overlay filesystem overhead.
 
