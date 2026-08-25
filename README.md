@@ -1,11 +1,57 @@
+## Project Purpose
+This repository provides a complete, fast, and reliable method for running
+CollectiveAccess on Windows using WSL‑Native. It includes installation guides,
+performance tuning, troubleshooting, and configuration notes for Providence and
+Pawtucket.
+
+The goal is to make CollectiveAccess run on Windows with near‑Linux performance
+without relying on Docker Desktop or slow NTFS mounts.
+
+## Why WSL‑Native Is Faster
+WSL‑Native runs CollectiveAccess directly on a real Linux filesystem (ext4) with
+near‑native performance. This avoids the major bottlenecks of Docker Desktop on
+Windows, including:
+
+- overlay filesystem overhead
+- NTFS bind‑mount penalties
+- container virtualization layers
+- slow metadata operations
+- slow derivative generation
+
+Real‑world testing shows dramatically faster installation, indexing, and media
+processing compared to Docker-based setups.
+
+## Upstream Repositories
+This project is an independent companion guide for installing and running
+CollectiveAccess on Windows using WSL‑Native. It works directly with the official
+CollectiveAccess applications:
+
+- **Providence** (backend)
+- **Pawtucket2** (frontend)
+
+Upstream sources:
+- https://github.com/collectiveaccess/providence
+- https://github.com/collectiveaccess/pawtucket2
+
+This repository does not modify or replace the official codebases; it provides a
+Windows‑friendly installation and performance workflow.
+
+## Repository Structure
+The documentation is organised into clear sections:
+
+- **wsl/** — WSL installation, configuration, troubleshooting
+- **providence/** — backend setup notes and configuration
+- **pawtucket/** — frontend setup notes and media symlink guide
+- **performance/** — MySQL, PHP‑FPM, Opcache, and WSL performance tuning
+- **docker/** — legacy Docker notes (slower, not recommended)
+
+
 # Installation Methods
 You can install CollectiveAccess on Windows using either:
 
 WSL‑Native (recommended) — fastest, simplest, most stable
 
 Docker Desktop — containerised, portable, slower on Windows
-
-## WSL‑Native is faster because it runs CollectiveAccess on a real Linux filesystem (ext4) with near‑native performance, avoiding Docker’s overlay filesystem, NTFS penalties, and container virtualization overhead.
 
 ### Recommended: WSL‑Native Installation
 See: wsl/install-wsl.md
@@ -77,3 +123,5 @@ A stable environment for development, testing, and production
 A better alternative to Docker Desktop for Windows users
 
 Optional performance tuning for advanced setups
+## Technical Source
+This documentation and the accompanying WSL installation workflow were developed with assistance from Microsoft Copilot.
