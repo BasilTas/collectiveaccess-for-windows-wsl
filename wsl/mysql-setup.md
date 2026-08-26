@@ -5,19 +5,22 @@ This page describes how to install, configure, and prepare MySQL for use with Co
 If you followed the Apache/PHP installation page, MySQL may already be installed.
 If not, install it now:
 
-Code
+```bash
 sudo apt install -y mysql-server
+```
 Start and enable the service:
 
-Code
+```bash
 sudo systemctl enable mysql
 sudo systemctl start mysql
+```
 
 ## 2. Secure the MySQL installation (optional but recommended)
 Run:
 
-Code
+```bash
 sudo mysql_secure_installation
+```
 Recommended answers:
 
 Validate password plugin: No
@@ -35,42 +38,50 @@ Reload privilege tables: Yes
 ## 3. Create the CollectiveAccess database
 Enter the MySQL shell:
 
-Code
+```bash
 sudo mysql
+```
 Create the database with the correct character set:
 
-Code
+```bash
 CREATE DATABASE ca CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
 ## 4. Create the CollectiveAccess user
 Create a dedicated user for CA:
 
-Code
+```bash
 CREATE USER 'causer'@'localhost' IDENTIFIED BY 'capass';
+```
 Grant full privileges on the CA database:
 
-Code
+```bash
 GRANT ALL PRIVILEGES ON ca.* TO 'causer'@'localhost';
 FLUSH PRIVILEGES;
+```
 Exit MySQL:
 
-Code
+```bash
 EXIT;
+```
 
 ## 5. Test the connection
 Run:
 
-Code
+```bash
 mysql -u causer -p
+```
 Enter the password:
 
-Code
+```bash
 capass
+```
 You should see the MySQL prompt.
 Exit:
 
-Code
+```bash
 EXIT;
+```
 
 ## 6. Notes for users migrating from Docker
 If you previously used Docker Desktop:
@@ -83,8 +94,9 @@ You must update setup.php in both Providence and Pawtucket
 
 Example fix:
 
-Code
+```bash
 define("__CA_DB_HOST__", "localhost");
+```
 This is essential for CA to connect to MySQL under WSL.
 
 ## 7. Next steps
