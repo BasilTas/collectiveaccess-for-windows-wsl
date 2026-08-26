@@ -2,11 +2,19 @@
 
 This page describes how to install and prepare Windows Subsystem for Linux (WSL2) for running CollectiveAccess on Windows. WSL2 provides a fast, native‑Linux environment without the overhead of Docker Desktop or IIS.
 
+## System Requirements
+WSL2 installation in this project relies on the unified WSL package introduced in
+Windows 10 version 21H2 and Windows Server 2022. Earlier versions (including
+Windows Server 2019) do not support `wsl --install`, `wsl --update`, or
+automatic kernel updates, and require manual `.appx` installation. These systems
+are not recommended for this installation method.
+
 ## 1. Install WSL2
 Open PowerShell (Administrator) and run:
 
-Code
+```bash
 wsl --install -d Ubuntu
+```
 This will:
 
 Enable WSL
@@ -35,29 +43,33 @@ These credentials are for your Linux environment only.
 ## 3. Update Ubuntu
 Inside Ubuntu, run:
 
-Code
+```bash
 sudo apt update
 sudo apt upgrade -y
+```
 This ensures all packages are current.
 
 ## 4. Basic WSL commands
 Useful commands for daily use:
 
-Code
+```bash
 wsl -d Ubuntu        # Start Ubuntu from PowerShell
 exit                 # Leave Ubuntu
 wsl --shutdown       # Fully stop all WSL instances
+```
 WSL automatically suspends when not in use. No manual shutdown is required.
 
 ## 5. Accessing WSL files from Windows
 You can browse and edit WSL files using Windows tools via:
 
-Code
+```bash
 \\wsl$\Ubuntu\
+```
 Your web root will be:
 
-Code
+```bash
 \\wsl$\Ubuntu\var\www\html
+```
 This allows editing with:
 
 Notepad++
@@ -70,12 +82,14 @@ Any Windows editor
 
 If you need write access, temporarily change ownership:
 
-Code
+```bash
 sudo chown -R $USER:$USER /var/www/html
+```
 Restore ownership after editing:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html
+```
 ## 6. Next steps
 Continue with:
 
