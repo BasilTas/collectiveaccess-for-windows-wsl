@@ -21,6 +21,17 @@ Windows, including:
 Real‑world testing shows dramatically faster installation, indexing, and media
 processing compared to Docker-based setups.
 
+### Supported Windows Versions
+This installation method requires modern WSL2 support and is recommended only for:
+
+- Windows 10 version 21H2 or later
+- Windows 11
+- Windows Server 2022 or later
+
+Windows Server 2019 and earlier Windows 10 builds do not support the unified WSL
+package and require legacy manual installation steps. For this reason, they are
+not recommended for running CollectiveAccess under WSL2.
+
 ## Upstream Repositories
 This project is an independent companion guide for installing and running
 CollectiveAccess on Windows using WSL‑Native. It works directly with the official
