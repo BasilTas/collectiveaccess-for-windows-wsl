@@ -8,17 +8,21 @@ PHP module not enabled, or Apache still using mpm_prefork without mod_php.
 Fix
 Enable PHP 8.4:
 
-Code
+```bash
 sudo a2enmod php8.4
 sudo systemctl restart apache2
+```
 If using PHP‑FPM, ensure mod_php is disabled:
 
-Code
+```bash
 sudo a2dismod php8.4
+```
 And confirm the FPM handler is configured in:
 
-Code
+```bash
 /etc/apache2/sites-available/000-default.conf
+```
+
 ## 2. “Database connection failed” during Providence installer
 Cause
 Wrong hostname — usually leftover Docker config.
@@ -26,20 +30,25 @@ Wrong hostname — usually leftover Docker config.
 Fix
 Open:
 
-Code
+```bash
 /var/www/html/ca/setup.php
+```
 Change:
 
-Code
+```bash
 'mysql'
+```
 to:
 
-Code
+```bash
 'localhost'
+```
 Also confirm the user exists:
 
-Code
+```bash
 mysql -u causer -p
+```
+
 ## 3. Pawtucket loads but images do not appear
 Cause
 Media symlink missing or incorrect.
@@ -47,16 +56,20 @@ Media symlink missing or incorrect.
 Fix
 Remove Pawtucket’s media folder:
 
-Code
+```bash
 sudo rm -rf /var/www/html/capublic/media
+```
 Recreate symlink:
 
-Code
+```bash
 sudo ln -s /var/www/html/ca/media /var/www/html/capublic/media
+```
 Check permissions:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca/media
+```
+
 ## 4. Providence installer fails to write files
 Cause
 Permissions incorrect on CA directories.
@@ -64,14 +77,16 @@ Permissions incorrect on CA directories.
 Fix
 Set correct ownership:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca
 sudo chmod -R 775 /var/www/html/ca
+```
 Ensure:
 
-Code
+```bash
 /var/www/html/ca/app/tmp
 /var/www/html/ca/media
+```
 are writable.
 
 ## 5. Composer fails with “permission denied”
@@ -81,14 +96,17 @@ Composer cannot write vendor files as root or wrong user.
 Fix
 Run Composer as Apache user:
 
-Code
+```bash
 sudo -u www-data composer install --no-dev
+```
 Or temporarily give yourself ownership:
 
-Code
+```bash
 sudo chown -R $USER:$USER /var/www/html/ca
 composer install --no-dev
 sudo chown -R www-data:www-data /var/www/html/ca
+```
+
 ## 6. Apache returns 403 Forbidden
 Cause
 Directory permissions or missing AllowOverride.
@@ -96,28 +114,35 @@ Directory permissions or missing AllowOverride.
 Fix
 Check permissions:
 
-Code
+```bash
 sudo chmod -R 775 /var/www/html
+```
 Enable .htaccess support:
 
-Code
+```bash
 sudo a2enmod rewrite
+```
 Edit:
 
-Code
+```bash
 sudo nano /etc/apache2/apache2.conf
+```
 Find:
 
-Code
+```bash
 <Directory /var/www/>
+```
 Ensure:
 
-Code
+```bash
 AllowOverride All
+```
 Restart:
 
-Code
+```bash
 sudo systemctl restart apache2
+```
+
 ## 7. MySQL refuses connection even with correct credentials
 Cause
 MySQL not running or socket authentication issues.
@@ -125,22 +150,27 @@ MySQL not running or socket authentication issues.
 Fix
 Start MySQL:
 
-Code
+```bash
 sudo systemctl start mysql
+```
 Check status:
 
-Code
+```bash
 systemctl status mysql
+```
 If root login fails:
 
-Code
+```bash
 sudo mysql
+```
 Then create a proper user:
 
-Code
+```bash
 CREATE USER 'causer'@'localhost' IDENTIFIED BY 'capass';
 GRANT ALL PRIVILEGES ON ca.* TO 'causer'@'localhost';
 FLUSH PRIVILEGES;
+```
+
 ## 8. Pawtucket homepage loads but CSS/JS missing
 Cause
 Incorrect URL root.
@@ -148,12 +178,14 @@ Incorrect URL root.
 Fix
 Open:
 
-Code
+```bash
 /var/www/html/capublic/setup.php
+```
 Ensure:
 
-Code
+```bash
 define("__CA_URL_ROOT__", "/capublic");
+```
 Restart Apache.
 
 ## 9. Providence loads but thumbnails are broken
@@ -163,9 +195,10 @@ Derivatives not generated or Imagick missing.
 Fix
 Install Imagick:
 
-Code
+```bash
 sudo apt install -y php8.4-imagick
 sudo systemctl restart apache2
+```
 Regenerate derivatives in Providence:
 
 Tools → Media → Regenerate Derivatives
@@ -177,12 +210,14 @@ Working inside /mnt/c/ (NTFS).
 Fix
 Always work inside WSL’s native filesystem:
 
-Code
+```bash
 /var/www/html/
+```
 Never install CA inside:
 
-Code
+```bash
 /mnt/c/
+```
 Performance improves dramatically.
 
 ## 11. Git clone fails with “permission denied”
@@ -192,16 +227,20 @@ Cloning into a directory owned by www-data.
 Fix
 Give yourself ownership temporarily:
 
-Code
+```bash
 sudo chown -R $USER:$USER /var/www/html
+```
 Clone:
 
-Code
+```bash
 git clone https://github.com/collectiveaccess/providence.git
+```
 Restore ownership:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html
+```
+
 12. Apache shows blank page or 500 error
 Cause
 Missing vendor libraries (Composer not run).
@@ -209,11 +248,13 @@ Missing vendor libraries (Composer not run).
 Fix
 Run:
 
-Code
+```bash
 cd /var/www/html/ca
 sudo -u www-data composer install --no-dev
+```
 Repeat for Pawtucket:
 
-Code
+```bash
 cd /var/www/html/capublic
 sudo -u www-data composer install --no-dev
+```
