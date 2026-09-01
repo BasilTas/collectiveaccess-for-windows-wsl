@@ -6,14 +6,15 @@ This page provides recommended MySQL tuning settings for Providence and Pawtucke
 1. Edit MySQL configuration
 Open the MySQL configuration file:
 
-Code
+```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
 You will add or adjust several key parameters.
 
 ## 2. Recommended MySQL settings for CollectiveAccess
 Add or update the following values inside mysqld.cnf:
 
-Code
+```bash
 innodb_buffer_pool_size = 1G
 innodb_buffer_pool_instances = 1
 innodb_log_file_size = 256M
@@ -27,37 +28,48 @@ query_cache_size = 0
 
 tmp_table_size = 64M
 max_heap_table_size = 64M
+```
 Why these values?
-innodb_buffer_pool_size = 1G  
+```bash
+innodb_buffer_pool_size = 1G
+```  
 The most important setting. CA benefits enormously from a large buffer pool.
 If you have >16GB RAM, you can increase this to 2G or 3G.
-
-innodb_log_file_size = 256M  
+```bash
+innodb_log_file_size = 256M
+```  
 Helps with large transactions and bulk imports.
-
-innodb_flush_log_at_trx_commit = 2  
+```bash
+innodb_flush_log_at_trx_commit = 2
+```  
 Safe for WSL2 and improves write performance.
-
-query_cache_type = 0  
+```bash
+query_cache_type = 0
+``` 
 MySQL’s query cache is deprecated and slows CA down.
-
-tmp_table_size / max_heap_table_size = 64M  
+```bash
+tmp_table_size / max_heap_table_size = 64M
+```   
 Helps with complex searches and relationship queries.
 
 ## 3. Restart MySQL
 Apply the changes:
 
-Code
+```bash
 sudo systemctl restart mysql
+```
+
 ## 4. Verify buffer pool size
 Run:
 
-Code
+```bash
 mysql -u causer -p -e "SHOW VARIABLES LIKE 'innodb_buffer_pool_size';"
+```
 Expected output:
 
-Code
+```bash
 innodb_buffer_pool_size | 1073741824
+```
 (1GB)
 
 ## 5. Expected performance improvements
@@ -88,8 +100,9 @@ If your system has plenty of RAM:
 
 Example:
 
-Code
+```bash
 innodb_buffer_pool_size = 2G
+```
 This is safe and beneficial for large CA installations.
 
 ## 7. Next steps
