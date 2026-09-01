@@ -8,20 +8,24 @@ Opcache is included with PHP 8.4 but may not be enabled by default.
 
 Edit the PHP configuration file:
 
-Code
+```bash
 sudo nano /etc/php/8.4/apache2/php.ini
+```
 Ensure the following line is present and uncommented:
 
-Code
+```bash
 opcache.enable=1
+```
 Restart Apache:
 
-Code
+```bash
 sudo systemctl restart apache2
+```
+
 ## 2. Recommended Opcache settings for CollectiveAccess
 Add or update the following values in php.ini:
 
-Code
+```bash
 opcache.enable=1
 opcache.memory_consumption=256
 opcache.interned_strings_buffer=16
@@ -30,17 +34,23 @@ opcache.revalidate_freq=2
 opcache.validate_timestamps=1
 opcache.fast_shutdown=1
 opcache.enable_cli=0
+```
 Why these values?
-memory_consumption=256  
+```bash
+memory_consumption=256
+```  
 CA has a large codebase; 256MB ensures enough room for compiled scripts.
-
-max_accelerated_files=20000  
+```bash
+max_accelerated_files=20000
+```  
 Providence + Pawtucket + vendor libraries easily exceed 10k PHP files.
-
-revalidate_freq=2  
+```bash
+revalidate_freq=2
+```  
 Checks for file changes every 2 seconds — safe for development.
-
-interned_strings_buffer=16  
+```bash
+interned_strings_buffer=16
+```  
 Helps with CA’s metadata-heavy string usage.
 
 ## 3. Optional: Enable JIT (PHP 8.4)
@@ -48,28 +58,35 @@ PHP 8.4 includes an improved JIT compiler. CA does not rely heavily on CPU-bound
 
 In php.ini:
 
-Code
+```bash
 opcache.jit=1255
 opcache.jit_buffer_size=64M
+```
 Restart Apache:
 
-Code
+```bash
 sudo systemctl restart apache2
+```
+
 ## 4. Verify Opcache is active
 Create a temporary PHP info file:
 
-Code
+```bash
 echo "<?php phpinfo();" | sudo tee /var/www/html/info.php
+```
 Open:
 
-Code
+```bash
 http://localhost/info.php
+```
 Look for the Zend OPcache section.
 
 Delete the file afterwards:
 
-Code
+```bash
 sudo rm /var/www/html/info.php
+```
+
 ## 5. Expected performance improvements
 With Opcache enabled, you should see:
 
