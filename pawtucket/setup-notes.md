@@ -14,12 +14,14 @@ easy updates (git pull)
 
 Clone Pawtucket into the Apache web root:
 
-Code
+```bash
 sudo git clone https://github.com/collectiveaccess/pawtucket2.git /var/www/html/capublic
+```
 This creates:
 
-Code
+```bash
 /var/www/html/capublic
+```
 as your Pawtucket installation directory.
 
 ## 2. Install Composer dependencies
@@ -27,80 +29,96 @@ Pawtucket also requires vendor libraries that are not included in the GitHub rep
 
 Run Composer inside the Pawtucket directory:
 
-Code
+```bash
 cd /var/www/html/capublic
 sudo -u www-data composer install --no-dev
+```
 This ensures all PHP 8.4‑compatible dependencies are installed.
 
 ## 3. Set correct permissions
 Pawtucket must be readable by Apache and able to access the shared media directory.
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/capublic
 sudo chmod -R 775 /var/www/html/capublic
+```
 If you need to edit files using Windows tools:
 
-Code
+```bash
 sudo chown -R $USER:$USER /var/www/html/capublic
+```
 Restore ownership afterwards:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/capublic
+```
+
 ## 4. Configure database settings
 Open:
 
-Code
+```bash
 /var/www/html/capublic/setup.php
 Ensure the database host is correct:
 
-Code
+```bash
 'localhost'
+```
 If you previously used Docker, change:
 
-Code
+```bash
 'mysql'
+```
 to:
 
-Code
+```bash
 'localhost'
+```
 This is essential for WSL.
 
 ## 5. Verify URL root
 Pawtucket should use:
 
-Code
+```bash
 define("__CA_URL_ROOT__", "/capublic");
+```
 This matches the directory:
 
-Code
+```bash
 /var/www/html/capublic
+```
+
 ## 6. Link Pawtucket to Providence’s media directory
 Pawtucket does not store media itself.
 It must reference Providence’s media directory.
 
 Remove the default Pawtucket media folder:
 
-Code
+```bash
 sudo rm -rf /var/www/html/capublic/media
+```
 Create a symlink pointing to Providence’s media:
 
-Code
+```bash
 sudo ln -s /var/www/html/ca/media /var/www/html/capublic/media
+```
 Verify:
 
-Code
+```bash
 ls -l /var/www/html/capublic/media
+```
 You should see:
 
-Code
+```bash
 media -> /var/www/html/ca/media
+```
 This ensures Pawtucket displays images, thumbnails, and derivatives correctly.
 
 ## 7. Alternative: Copy Pawtucket from Windows
 If you prefer to use an existing Windows copy:
 
-Code
+```bash
 sudo cp -r /mnt/c/collectiveaccess/capublic /var/www/html/
+```
 Then apply:
 
 permissions
@@ -116,8 +134,9 @@ Cloning from GitHub is cleaner and avoids Windows filesystem overhead.
 ## 8. Test Pawtucket
 Open:
 
-Code
+```bash
 http://localhost/capublic
+```
 You should see the Pawtucket homepage.
 
 If media does not appear:
