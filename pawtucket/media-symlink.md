@@ -8,43 +8,51 @@ Pawtucket ships with its own media folder, but it must be replaced with a symbol
 
 Remove it:
 
-Code
+```bash
 sudo rm -rf /var/www/html/capublic/media
+```
 This ensures Pawtucket does not attempt to use its own media directory.
 
 ## 2. Create the symbolic link
 Link Pawtucket’s media directory to Providence’s media directory:
 
-Code
+```bash
 sudo ln -s /var/www/html/ca/media /var/www/html/capublic/media
+```
 This creates:
 
-Code
+```bash
 /var/www/html/capublic/media -> /var/www/html/ca/media
+```
+
 ## 3. Verify the symlink
 Run:
 
-Code
+```bash
 ls -l /var/www/html/capublic/media
+```
 Expected output:
 
-Code
+```bash
 media -> /var/www/html/ca/media
+```
 If you see this, the symlink is correct.
 
 ## 4. Check permissions
 Providence’s media directory must be readable by Apache:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca/media
 sudo chmod -R 775 /var/www/html/ca/media
+```
 Pawtucket does not need write access — only read access.
 
 ## 5. Test media loading
 Open Pawtucket:
 
-Code
+```bash
 http://localhost/capublic
+```
 Check:
 
 Object images
@@ -74,8 +82,9 @@ Ensure the symlink path is correct
 ## 6. Notes for users migrating from Docker
 Docker installations often used:
 
-Code
+```bash
 /var/www/html/capublic/media -> /var/www/html/ca/media
+```
 The same structure works under WSL2.
 
 However, if your Docker installation used a different path (e.g., /var/www/html/html/media), update the symlink accordingly.
