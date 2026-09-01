@@ -16,12 +16,14 @@ easy updates (git pull)
 
 Clone Providence into the Apache web root:
 
-Code
+```bash
 sudo git clone https://github.com/collectiveaccess/providence.git /var/www/html/ca
+```
 This creates:
 
-Code
+```bash
 /var/www/html/ca
+```
 as your Providence installation directory.
 
 ## 2. Install Composer dependencies
@@ -29,75 +31,94 @@ Providence requires vendor libraries that are not included in the GitHub reposit
 
 Run Composer inside the Providence directory:
 
-Code
+```bash
 cd /var/www/html/ca
 sudo -u www-data composer install --no-dev
+```
 This ensures all PHP 8.4‑compatible dependencies are installed.
 
 ## 3. Set correct permissions
 Providence must be readable by Apache and writable by the installer.
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca
 sudo chmod -R 775 /var/www/html/ca
+```
+
 If you need to edit files using Windows tools:
 
-Code
+```bash
 sudo chown -R $USER:$USER /var/www/html/ca
+```
+
 After editing:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca
+```
+
 ## 4. Configure database settings
 Open:
 
-Code
+```bash
 /var/www/html/ca/setup.php
+```
 Ensure the database host is correct:
 
-Code
+```bash
 'localhost'
+```
 If you previously used Docker, change:
 
-Code
+```bash
 'mysql'
+```
 to:
 
-Code
+```bash
 'localhost'
+```
 This is essential for WSL.
 
 ## 5. Verify URL root
 Providence must use:
 
-Code
+```bash
 define("__CA_URL_ROOT__", "/ca");
+```
 This matches the directory:
 
-Code
+```bash
 /var/www/html/ca
+```
+
 ## 6. Verify base directory
 Ensure:
 
-Code
+```bash
 define("__CA_BASE_DIR__", "/var/www/html/ca");
+```
 This is the correct path under WSL.
 
 ## 7. Verify media directory
 Providence should use:
 
-Code
+```bash
 define("__CA_MEDIA_ROOT__", "/var/www/html/ca/media");
+```
 Ensure the directory exists:
 
-Code
+```bash
 sudo mkdir -p /var/www/html/ca/media
 sudo chown -R www-data:www-data /var/www/html/ca/media
+```
+
 ## 8. Alternative: Copy Providence from Windows
 If you prefer to use an existing Windows copy:
 
-Code
+```bash
 sudo cp -r /mnt/c/collectiveaccess/ca /var/www/html/
+```
 Then apply:
 
 permissions
@@ -113,8 +134,10 @@ This method works, but cloning from GitHub is cleaner and faster.
 ## 9. Run the Providence installer
 Open:
 
-Code
+```bash
 http://localhost/ca
+```
+
 Enter:
 
 Database host: localhost
@@ -130,14 +153,18 @@ Installation should complete significantly faster than Docker Desktop.
 ## 10. Post‑installation permissions
 After installation, ensure Providence can write to:
 
-Code
+```bash
 /var/www/html/ca/app/tmp
 /var/www/html/ca/media
+```
+
 Fix permissions if needed:
 
-Code
+```bash
 sudo chown -R www-data:www-data /var/www/html/ca
 sudo chmod -R 775 /var/www/html/ca
+```
+
 ## 11. Next steps
 Continue with:
 
